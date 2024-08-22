@@ -33,6 +33,20 @@ public class NaverReviewsController {
 		model.addAttribute("paging",paging);
 		return "naver_reviews_list";
 	}
+	
+	// 검색어 획득, 검색 작업 실제 진행(서비스- 레퍼지토리 처리), 전달내용(검색어, 페이징번호)
+	@GetMapping("/list2")
+	public String list2(Model model,
+			@RequestParam(value="page", defaultValue = "0") int page,
+			@RequestParam(value="keyword", defaultValue = "") String keyword) {
+		//1. 특정 페이지(인자)에 해당되는 페이징 데이터 획득
+		Page<NaverReviews> paging = this.naverReviewsService.getList2(page, keyword);
+		// 리턴 타입 Page<NaverReviews>
+		//2. html에 전달
+		model.addAttribute("keyword",keyword);
+		model.addAttribute("paging",paging);
+		return "naver_reviews_list";
+	}
 }
 
 
